@@ -1,0 +1,69 @@
+{%extends "base.html" %}
+ 
+{% block mainbody %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12" style="height:300px">
+			<h3 style="text-align:center">为了人工智能的一切可能</h3><hr style="width:35%">
+			<h4 style="text-align:center">Power Human with AI</h4>
+		</div>
+		<div class="col-md-12">
+			<form action="http://localhost:8000/mz_api" id="form" method="post" enctype="multipart/form-data">
+				<div class="panel panel-default" style="margin:auto; position:relative;width:334px;">
+					<div class="panel-body">
+						<h4>Have a try?</h4><hr>
+						<div style="display: table-cell;vertical-align: middle;">
+						<input type="file" name="img" id="img" accept="image/*" style="display:none" multiple="multiple">
+						<input type="hidden" name="key" id="key" value="">
+						<input type="hidden" name="r" id="r" value="150">
+						<input type="hidden" name="g" id="g" value="0">
+						<input type="hidden" name="b" id="b" value="0">
+						<button class="button button-glow button-circle button-primary button-jumbo" type="button" id="upbtn"><i class="fa fa-plus"></i></button>
+						<span id="fname" style="margin-left:5px">Upload png or jpg files <b>&lt;1M</b></span></div>
+						<br>
+						<button id="submit" type="button" class="button button-glow button-border button-rounded button-primary" style="width:100%">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+$('#key').value=Math.random().toString(36).substr(2);
+function getFileType(filePath){
+	var startIndex = filePath.lastIndexOf(".");
+	if(startIndex != -1)
+		return filePath.substring(startIndex+1, filePath.length).toLowerCase();
+	else return "";
+}
+$('#upbtn').click(function(){
+  $('#img').click();
+});
+$('#img').change(function() {
+   var filePath = $("#img").val();
+   if("" != filePath){
+	var fileType = getFileType(filePath);
+	//判断上传的附件是否为图片
+	if("jpg"!=fileType  && "png"!=fileType){
+		$("#img").val("");
+		alert("请上传JPG,PNG格式的图片");
+      	return false;
+	}
+	else{
+		//获取附件大小（单位：KB）
+		var fileSize = document.getElementById("img").files[0].size / 1024;
+        if(fileSize > 1024){
+        	alert("图片大小不能超过1MB");
+          return false;
+        }
+	 }
+     $('#fname').text('❤ Click \'Submit\' to go ❤');
+  }  
+});
+$('#submit').click(function(){
+    $('body').removeClass('loaded');
+    $('#loader-wrapper .load_title').add();
+    $('#form').submit();
+});
+</script>
+{% endblock %}
