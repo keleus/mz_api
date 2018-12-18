@@ -22,7 +22,7 @@ pip install django
 ## 使用
 
 #### 运行
-在mz_web目录下：
+在项目目录下运行：
 
 ```
 python manage.py runserver
