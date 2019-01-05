@@ -41,7 +41,3 @@ def mz_api(request):
         return response
 
     return JsonResponse({"result": 0, "data": "error"})
-
-
-def index(request):
-    return render(request, 'index.html')
