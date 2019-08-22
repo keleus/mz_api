@@ -2,10 +2,6 @@
 
 使用face_recognition让你实现在线试妆~
 
-## DEMO
-
-http://ai.clf.red
-
 (注：本项目没有提供前端页面，请自行构建)
 
 ## 环境
